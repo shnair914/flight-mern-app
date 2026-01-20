@@ -1,4 +1,4 @@
-import express from 'express';
+import express, {type Request, type Response} from 'express';
 import cors from 'cors';
 import 'dotenv/config';
 import mongoose from 'mongoose';
@@ -33,6 +33,10 @@ app.use(cors({
 app.use('/api/users', userRoute);
 app.use('/api/auth', authRoute);
 app.use('/api/flights', flightRoute);
+
+app.get("*", (req: Request, res: Response) => {
+    res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
+})
 
 app.listen(7000, () => {
     console.log("Listening on port 7000");
