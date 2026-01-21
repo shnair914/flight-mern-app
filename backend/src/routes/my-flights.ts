@@ -1,7 +1,8 @@
 import express, {type Request, type Response} from 'express';
 import multer from 'multer';
 import cloudinary from 'cloudinary';
-import Flight, { type FlightType } from '../models/flight.js';
+import Flight from '../models/flight.js';
+import { type FlightType } from '../shared/types.js';
 import { verifyToken } from '../middleware/auth.js';
 import { body } from 'express-validator';
 
@@ -54,6 +55,16 @@ flightRoute.post('/',
             res.status(500).json({message: "Something went wrong"});
         }
 
+})
+
+flightRoute.get('/', verifyToken, async(req: Request, res: Response) => {
+    try {
+        const flights = await Flight.find({ userId: req.userId});
+        res.status(200).json(flights);
+    } catch (error) {
+        res.status(500).json({message: "Error fetching flights"});    
+    }
+   
 })
 
 export default flightRoute;

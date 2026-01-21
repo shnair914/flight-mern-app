@@ -42,3 +42,18 @@ test("Should allow user to add a flight", async({page}) => {
     await page.getByRole("button", { name: "Save"}).click();
     await expect(page.getByText("Flight Added!")).toBeVisible();
 });
+
+test("Test if a flight can be viewed", async({page}) => {
+    await page.goto(`${UI_URL}my-flights`);
+    const companyName = 'Test Company'
+    await expect(page.locator('h2').filter({ hasText: companyName})).toBeVisible();
+    await expect(page.locator("div").filter({ hasText: "Test Description"})).toBeVisible();
+    await expect(page.locator("span").filter({hasText: "Test Arrival City"})).toBeVisible();
+    await expect(page.locator("span").filter({hasText: "Test Arrival Country"})).toBeVisible();
+    await expect(page.locator("span").filter({hasText: "Test Departure City"})).toBeVisible();
+    await expect(page.locator("span").filter({hasText: "Test Departure Country"})).toBeVisible();
+    await expect(page.locator("span").filter({hasText: "$100"})).toBeVisible();
+    await expect(page.locator("span").filter({hasText: '"Economy"'})).toBeVisible();
+    // await expect(page.getByRole("link", { name: "View Details"})).toBeVisible();
+    // await expect(page.getByRole("link", { name: "Add Flight"})).toBeVisible();
+})

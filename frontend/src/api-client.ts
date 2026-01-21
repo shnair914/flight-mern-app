@@ -1,5 +1,6 @@
 import type { RegisterFormData } from "./pages/Register";
 import type { LoginFormData } from "./pages/Login";
+import { type FlightType } from '../../backend/src/shared/types';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
 
@@ -74,6 +75,19 @@ export const addMyFlight = async (flightFormData:FormData) => {
 
     if (!response.ok){
         throw new Error("Failed to add flight");
+    }
+
+    return response.json();
+}
+
+export const getFlights = async(): Promise<FlightType[]> => {
+    const response = await fetch(`${API_BASE_URL}api/flights`, {
+        method: "GET",
+        credentials: "include"
+    });
+
+    if(!response.ok){
+        throw new Error("Flight does not exist");
     }
 
     return response.json();

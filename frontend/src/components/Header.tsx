@@ -16,7 +16,7 @@ const Header = () => {
                         <>
                             <Link to="/flight-bookings" className='p-4 bg-green-500 text-white rounded-sm 
                             font-semibold hover:bg-green-400'>Bookings</Link>
-                            <Link to="/flights" className='p-4 bg-red-500 text-white rounded-sm 
+                            <Link to="/my-flights" className='p-4 bg-red-500 text-white rounded-sm 
                             font-semibold hover:bg-red-400'>Flights</Link>
                             <SignOutButton/>
                         </> :

@@ -1,19 +1,6 @@
 import mongoose from "mongoose";
+import { type FlightType } from '../shared/types.js';
 
-export type FlightType = {
-    _id: string;
-    userId: string;
-    companyName: string;
-    departureCity: string;
-    arrivalCity: string;
-    departureCountry: string;
-    arrivalCountry: string;
-    description: string;
-    tickType: string[];
-    flightPrice: number;
-    imageUrls: string[];
-    lastUpdated: Date;
-}
 
 const flightSchema = new mongoose.Schema<FlightType>({
     userId: { type: String, required:true},

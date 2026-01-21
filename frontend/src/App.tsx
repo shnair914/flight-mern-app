@@ -4,6 +4,7 @@ import Register from "./pages/Register"
 import Login from "./pages/Login"
 import { useAppContext } from "./contexts/AppContext"
 import AddFlights from "./pages/AddFlights"
+import MyFlights from "./pages/MyFlights"
 
 function App() {
 
@@ -21,8 +22,13 @@ function App() {
             path="/add-flight"
             element={<Layout><AddFlights/></Layout>}
           />
+          <Route
+            path="/my-flights"
+            element={<Layout><MyFlights/></Layout>}
+          />
         </>
       }
+     
       <Route path="*" element={<Navigate to='/'/>}/>
     </Routes>
 
