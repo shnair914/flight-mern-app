@@ -36,7 +36,7 @@ app.use('/api/auth', authRoute);
 app.use('/api/my-flights', flightRoute);
 app.use('/api/flight', flightRouter);
 
-app.get("{*path}", (req: Request, res: Response) => {
+app.get("/*", (req: Request, res: Response) => {
     res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
 })
 // Need this for requests that come from protected routes 
