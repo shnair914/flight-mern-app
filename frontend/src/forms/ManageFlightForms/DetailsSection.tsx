@@ -67,8 +67,29 @@ const DetailsSection = () => {
                     <span className="text-red-500">{errors.flightPrice.message}</span>
                 )}
             </div>
+             <div className="flex flex-col max-w-[40%]">
+                <label htmlFor="" className="font-semibold mb-2">Star Rating</label>
+                <select id="" className="border rounded w-full p-2 text-gray" 
+                {...register('starRating', {required: "This field is required"})}>
+                        <option value="" className="text-sm font-bold ">
+                            Select as Rating
+                        </option>
+                        {[1, 2, 3, 4, 5].map((num, index) => (
+                            <option key={index} value={num}>{num}</option>
+                        ))}
+                </select>
+                {errors.starRating && (
+                    <span className="text-red-500">{errors.starRating.message}</span>
+                )}
+            </div>
         </div>
     )
 }
 
 export default DetailsSection;
+
+
+/*
+   
+ 
+*/

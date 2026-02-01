@@ -3,15 +3,35 @@ import type { FlightFormData } from "./ManageFlightForm";
 
 
 const ImagesSection = () => {
-    const  { register, formState: {errors}} = useFormContext<FlightFormData>();  
-    return (
+    const  { register, formState: {errors}, watch, setValue } = useFormContext<FlightFormData>();
+    const existingImageURLs = watch("imageUrls");
+    const handleDelete = ( event: React.MouseEvent<HTMLButtonElement, MouseEvent>, imageUrl: string) => {
+        event.preventDefault();
+        setValue(
+                "imageUrls", 
+                existingImageURLs.filter((url)=> url !== imageUrl)
+            );
+    }  
+    return ( 
         <div>
             <h2 className="text-2xl font-bold mb-3">Images</h2>
             <div className="flex flex-col gap-4 border border-slate-400 rounded p-4">
+                {existingImageURLs && (
+                    <div className="grid grid-cols-6 gap-3">
+                        {existingImageURLs.map((url, index) => (
+                            <div className="relative group" key={index}>
+                                <img src={url} className="min-h-full object-cover"/>
+                                <button className="absolute inset-0 flex items-center justify-center
+                                bg-black bg-opacity-50 opacity-0 group-hover:opacity-50 text-white
+                                cursor-pointer" onClick={(event) => handleDelete(event, url)}>Delete</button>
+                            </div>
+                        ))}
+                    </div>
+                )}
                 <input type="file" multiple accept="image/*" className="w-1/4 text-black
                 font-normal bg-slate-300 px-3 py-2 border rounded-sm cursor-pointer" {...register("imageFiles", {
                     validate: (imageFile) => {
-                        const totalLength = imageFile.length;
+                        const totalLength = imageFile.length + (existingImageURLs?.length || 0);
 
                         if(totalLength === 0){
                             return "At least one image should be added";
@@ -33,3 +53,7 @@ const ImagesSection = () => {
 }
 
 export default ImagesSection;
+
+/* 
+   
+*/

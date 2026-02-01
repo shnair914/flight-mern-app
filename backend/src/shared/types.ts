@@ -8,7 +8,18 @@ export type FlightType = {
     arrivalCountry: string;
     description: string;
     tickType: string[];
+    tickCount: number;
     flightPrice: number;
     imageUrls: string[];
+    starRating: number;
     lastUpdated: Date;
+}
+
+export type FlightSearchResponse = {
+    data: FlightType[];
+    pagination: {
+        total: number;
+        page: number;
+        pages: number;
+    }
 }

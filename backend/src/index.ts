@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 import userRoute from './routes/users.js';
 import authRoute from './routes/auth.js';
 import flightRoute from './routes/my-flights.js';
+import flightRouter  from './routes/flights.js';
 import cookieParser from 'cookie-parser';
 import { v2 as cloudinary } from 'cloudinary';
 import path from 'path';
@@ -32,11 +33,13 @@ app.use(cors({
 
 app.use('/api/users', userRoute);
 app.use('/api/auth', authRoute);
-app.use('/api/flights', flightRoute);
+app.use('/api/my-flights', flightRoute);
+app.use('/api/flight', flightRouter);
 
 app.get("{*path}", (req: Request, res: Response) => {
     res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
 })
+// Need this for requests that come from protected routes 
 
 app.listen(7000, () => {
     console.log("Listening on port 7000");

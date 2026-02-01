@@ -33,6 +33,8 @@ test("Should allow user to add a flight", async({page}) => {
     await page.locator('[name=departureCountry]').fill("Test Departure Country");
     await page.locator('[name=description]').fill("Test Description");
     await page.locator('[name=flightPrice]').fill("100");
+    await page.locator("[name=tickCount]").fill("1");
+    await page.selectOption('select[name="starRating"]', "3");
     await page.getByText("Economy").click();
 
     await page.setInputFiles('[name="imageFiles"]', [
@@ -45,15 +47,37 @@ test("Should allow user to add a flight", async({page}) => {
 
 test("Test if a flight can be viewed", async({page}) => {
     await page.goto(`${UI_URL}my-flights`);
-    const companyName = 'Test Company'
-    await expect(page.locator('h2').filter({ hasText: companyName})).toBeVisible();
-    await expect(page.locator("div").filter({ hasText: "Test Description"})).toBeVisible();
-    await expect(page.locator("span").filter({hasText: "Test Arrival City"})).toBeVisible();
-    await expect(page.locator("span").filter({hasText: "Test Arrival Country"})).toBeVisible();
-    await expect(page.locator("span").filter({hasText: "Test Departure City"})).toBeVisible();
-    await expect(page.locator("span").filter({hasText: "Test Departure Country"})).toBeVisible();
-    await expect(page.locator("span").filter({hasText: "$100"})).toBeVisible();
-    await expect(page.locator("span").filter({hasText: '"Economy"'})).toBeVisible();
-    // await expect(page.getByRole("link", { name: "View Details"})).toBeVisible();
-    // await expect(page.getByRole("link", { name: "Add Flight"})).toBeVisible();
+    await expect(page.locator('h2').filter({ hasText: 'Test Company'}).first()).toBeVisible();
+    await expect(page.locator("div").filter({ hasText: "Test Description"}).first()).toBeVisible();
+    await expect(page.locator("span").filter({hasText: "Test Arrival City"}).first()).toBeVisible();
+    await expect(page.locator("span").filter({hasText: "Test Arrival Country"}).first()).toBeVisible();
+    await expect(page.locator("span").filter({hasText: "Test Departure City"}).first()).toBeVisible();
+    await expect(page.locator("span").filter({hasText: "Test Departure Country"}).first()).toBeVisible();
+    await expect(page.locator("span").filter({hasText: "$100"}).first()).toBeVisible();
+    await expect(page.locator("span").filter({hasText: 'Economy'}).first()).toBeVisible();
+    await expect(page.locator("span").filter({hasText: "3 Star Rating"}).first()).toBeVisible();
+    await expect(page.getByRole("link", { name: "View Details"}).first()).toBeVisible();
+    await expect(page.getByRole("link", { name: "Add Flight"}).first()).toBeVisible();
 })
+
+test("Edit flight should work", async({page}) => {
+    await page.goto(`${UI_URL}my-flights`);
+
+    await page.getByRole("link", { name: "View Details"}).first().click();
+    
+    await page.waitForSelector('[name="arrivalCity"]', {state: "visible"});
+    await expect(page.locator('[name=arrivalCity]')).toHaveValue('Test Arrival City Update');
+    await page.locator("[name=arrivalCity]").fill("Test Arrival City Update Again");
+    await page.getByRole("button", { name: "Save"}).click();
+    await expect(page.getByText("Update Successful!")).toBeVisible();
+
+    await page.reload();
+
+    await page.getByRole("link", { name: "View Details"}).first().click();
+
+    await page.waitForSelector('[name="arrivalCity"]', {state: "visible"});
+    await expect(page.locator('[name=arrivalCity]')).toHaveValue('Test Arrival City Update Again');
+    await page.locator("[name=companyName]").fill("Test Arrival City Update");
+    await page.getByRole("button", { name: "Save"}).click();
+});
+

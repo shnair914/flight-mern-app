@@ -10,11 +10,12 @@ const TypesSection = () => {
             <h2 className="font-bold text-3xl my-3">Types</h2>
             <div className="grid grid-cols-4 gap-4">
                 { flightTypes.map((type) => (
-                    <label className={
+                    <label key={type} className={
                         watchType?.includes(type) ? "cursor-pointer bg-blue-300 text-sm rounded-full px-4 py-2 font-semibold" 
                         : "cursor-pointer bg-slate-200 text-sm rounded-full px-4 py-2 font-semibold"
                     }>
-                        <input type="radio" className="hidden" value={type}
+                        <input type="checkbox" className="hidden" value={type}
+                        checked={watchType?.includes(type)}
                         {...register("tickType", {required: "This field is required"})}/>
                         <span className="">{type}</span>
                     </label>
@@ -29,3 +30,5 @@ const TypesSection = () => {
 }
 
 export default TypesSection;
+
+

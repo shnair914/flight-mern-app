@@ -11,8 +11,10 @@ const flightSchema = new mongoose.Schema<FlightType>({
     arrivalCountry: { type: String, required: true},
     description: { type: String, required: true},
     tickType: [{ type: String, required: true}],
+    tickCount: { type: Number, required: true},
     flightPrice: { type: Number, required: true},
     imageUrls: [{ type: String, required: true}],
+    starRating: { type: Number, required: true, min: 1, max: 5},
     lastUpdated: { type: Date, required: true}
 })
 
