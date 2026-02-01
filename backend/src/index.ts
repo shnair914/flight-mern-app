@@ -36,11 +36,11 @@ app.use('/api/auth', authRoute);
 app.use('/api/my-flights', flightRoute);
 app.use('/api/flight', flightRouter);
 
-app.get("/*", (req: Request, res: Response) => {
+app.get("{*path}", (req: Request, res: Response) => {
     res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
 })
-// Need this for requests that access non static files in production
-console.log(path.join(__dirname, "../../frontend/dist/index.html"));
+// Need this for requests that come from protected routes 
+console.log(path.join(__dirname, "../../frontend/dist/index.html"))
 
 app.listen(7000, () => {
     console.log("Listening on port 7000");
