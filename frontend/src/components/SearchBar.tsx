@@ -16,6 +16,11 @@ const SearchBar = () => {
     const navigate = useNavigate();
     const { isLoggedIn, showToast } = useAppContext();
 
+    const handleClear = () => {
+        setArrival("");
+        setDeparture("");
+    }
+
     const handleSubmit = (event: FormEvent) => {
         event.preventDefault();
         search.saveSearchValues(
@@ -91,7 +96,7 @@ const SearchBar = () => {
                     <button className="bg-blue-500 cursor-pointer hover:bg-blue-400 p-2 
                     rounded-sm text-white font-semibold min-w-full " >Search</button>
                     <button className="bg-red-500 cursor-pointer hover:bg-red-400 p-2
-                    rounded-sm text-white font-semibold min-w-full ">Clear</button>
+                    rounded-sm text-white font-semibold min-w-full " onClick={handleClear}>Clear</button>
                 </div>
             </div>
             

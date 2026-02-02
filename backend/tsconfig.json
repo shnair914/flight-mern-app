@@ -12,7 +12,7 @@
     "target": "esnext",
     "types": [],
     "rootDir": "./src",
-    "outDir": "./build",
+    "outDir": "./dist",
 
 
     // For nodejs:
